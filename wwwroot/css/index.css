@@ -1,0 +1,41 @@
+﻿
+.resume-card {
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    border: none;
+}
+
+.resume-card .card-header {
+    font-weight: 600;
+    letter-spacing: .3px;
+}
+
+.form-control {
+    border-radius: 6px;
+}
+
+.section-title i {
+    margin-right: 8px;
+}
+
+.template-card {
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 8px;
+    transition: all .25s ease;
+}
+
+    .template-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 6px 16px rgba(0,0,0,.1);
+    }
+
+    .template-card.active {
+        border: 2px solid #0d6efd;
+    }
+
+.btn-add {
+    font-size: 0.85rem;
+}
+
+

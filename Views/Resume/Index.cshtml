@@ -1,0 +1,156 @@
+@model DCOtoPDF.Models.ResumeViewModel
+
+@{
+    ViewData["Title"] = "Create Your Resume";
+}
+<link href="~/css/index.css" rel="stylesheet" />
+
+<div class="container my-5">
+    <h2 class="fw-bold mb-4 text-center">Professional Resume Builder</h2>
+
+    <form asp-action="Generate" asp-controller="Resume" method="post">
+        @Html.AntiForgeryToken()
+
+        <!-- PERSONAL INFO -->
+        <div class="card resume-card mb-4">
+            <div class="card-header bg-primary text-white section-title">
+                <i class="bi bi-person-circle"></i> Personal Information
+            </div>
+            <div class="card-body row g-3">
+                <div class="col-md-6">
+                    <input asp-for="FullName" class="form-control" placeholder="Full Name" />
+                </div>
+                <div class="col-md-6">
+                    <input asp-for="Degree" class="form-control" placeholder="Highest Qualification" />
+                </div>
+                <div class="col-md-6">
+                    <input asp-for="Email" class="form-control" placeholder="Email Address" />
+                </div>
+                <div class="col-md-6">
+                    <input asp-for="Mobile" class="form-control" placeholder="Mobile Number" />
+                </div>
+                <div class="col-12">
+                    <textarea asp-for="Address" class="form-control" rows="2"
+                              placeholder="Address"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- PROFILE -->
+        <div class="card resume-card mb-4">
+            <div class="card-header bg-primary text-white section-title">
+                <i class="bi bi-file-earmark-text"></i> Profile Summary
+            </div>
+            <div class="card-body">
+                <textarea asp-for="ProfileSummary" class="form-control" rows="3"
+                          placeholder="Brief professional summary"></textarea>
+            </div>
+        </div>
+
+        <!-- EDUCATION -->
+        <div class="card resume-card mb-4">
+            <div class="card-header bg-primary text-white section-title">
+                <i class="bi bi-mortarboard"></i> Academic Background
+            </div>
+            <div class="card-body row g-3">
+                <div class="col-md-4">
+                    <input asp-for="Course" class="form-control" placeholder="Course / Degree" />
+                </div>
+                <div class="col-md-4">
+                    <input asp-for="Year" class="form-control" placeholder="Passing Year" />
+                </div>
+                <div class="col-md-4">
+                    <input asp-for="CGPA" class="form-control" placeholder="CGPA / Percentage" />
+                </div>
+            </div>
+        </div>
+
+        <!-- SKILLS -->
+        <div class="card resume-card mb-4">
+            <div class="card-header bg-primary text-white section-title">
+                <i class="bi bi-tools"></i> Technical Skills
+            </div>
+            <div class="card-body">
+                <div id="skills-container">
+                    <input name="Skills" class="form-control mb-2" placeholder="Skill" />
+                </div>
+                <button type="button"
+                        class="btn btn-outline-secondary btn-sm btn-add"
+                        onclick="addField('skills-container','Skills')">
+                    + Add Skill
+                </button>
+            </div>
+        </div>
+
+        <!-- EXPERIENCE -->
+        <div class="card resume-card mb-4">
+            <div class="card-header bg-primary text-white section-title">
+                <i class="bi bi-briefcase"></i> Professional Experience
+            </div>
+            <div class="card-body row g-3">
+                <div class="col-md-6">
+                    <input asp-for="JobTitle" class="form-control" placeholder="Job Title" />
+                </div>
+                <div class="col-md-6">
+                    <input asp-for="CompanyName" class="form-control" placeholder="Company Name" />
+                </div>
+                <div class="col-md-6">
+                    <input asp-for="JobLocation" class="form-control" placeholder="Location" />
+                </div>
+                <div class="col-md-6">
+                    <input asp-for="EmploymentDuration" class="form-control" placeholder="Duration" />
+                </div>
+
+                <div class="col-12">
+                    <div id="experience-container">
+                        <input name="ExperiencePoints" class="form-control mb-2"
+                               placeholder="Responsibility / Achievement" />
+                    </div>
+                    <button type="button"
+                            class="btn btn-outline-secondary btn-sm btn-add"
+                            onclick="addField('experience-container','ExperiencePoints')">
+                        + Add Experience Point
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TEMPLATE -->
+        <div class="card resume-card mb-4">
+            <div class="card-header bg-primary text-white section-title">
+                <i class="bi bi-layout-text-window-reverse"></i> Resume Template
+            </div>
+            <div class="card-body">
+                <div class="row g-4">
+                    @foreach (var template in Model.AvailableTemplates)
+                    {
+                        var preview = Url.Content(
+                        $"~/TemplatePreviews/{System.IO.Path.GetFileNameWithoutExtension(template)}.png");
+
+                        <div class="col-md-4">
+                            <div class="template-card"
+                                 data-template="@template">
+                                <img src="@preview" class="img-fluid rounded border" />
+                                <p class="text-center mt-2 fw-semibold">@template</p>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <input type="hidden" asp-for="SelectedTemplate" />
+            </div>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary btn-lg px-5">
+                Generate & Download PDF
+            </button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script src="~/js/Index.js"></script>
+}

@@ -1,0 +1,52 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<div class="row mt-3">
+    <div class="col-md-3">First Value</div>
+    <div class="col-md-9">
+        <input type="text" id="txtval1" class="form-control" />
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-md-3">Second Value</div>
+    <div class="col-md-9">
+        <input type="text" id="txtval2" class="form-control" />
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-md-3"></div>
+    <div class="col-md-9">
+        <a href="javascript:void(0)" class="btn btn-success" onclick="fnSum()">Sum</a>
+    </div>
+</div>
+
+
+<div class="row mt-3">
+    <div class="col-md-3"></div>
+    <div class="col-md-9" id="divResult"></div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    // $(document).ready(function(){
+    //     console.log("Vinay");
+    //     alert("Vinay");
+    // });
+    function fnSum(){
+        var x = parseInt( $("#txtval1").val());
+        var y = parseInt($("#txtval2").val());
+
+        var z = x+y
+       alert(z);
+    }
+
+
+</script>
